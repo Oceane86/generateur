@@ -66,10 +66,16 @@ class MainWindow(QMainWindow):
 
         # Affecter une action au clic
         btn_quit.clicked.connect(self.quit)
-        btn_quit.clicked.connect(self.copy)
+        btn_copy.clicked.connect(self.copy)
 
         self.option_size.valueChanged.connect(self.change_size)
 
+        btn_generate.clicked.connect(self.generated)
+        
+        self.generated()
+
+        self.setStatusBar(QStatusBar(self))
+        self.status = self.statusBar()
 
     def quit(self):
         QApplication.quit()
@@ -77,6 +83,7 @@ class MainWindow(QMainWindow):
     def copy(self):
         clipboard = QApplication.clipboard()
         clipboard.setText(self.password_generated.text())
+        self.status.showMessage("mots de passe coopié", 1000)
 
     def change_size(self):
         # récupérer la valeur => actualiser le texte
