@@ -2,7 +2,7 @@ import sys
 from PySide6.QtCore import *
 from PySide6.QtWidgets import *
 from PySide6.QtGui import *
-
+from random import choice
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -61,6 +61,51 @@ class MainWindow(QMainWindow):
         self.option_symbole = QCheckBox("Symboles")
         option_layout.addWidget(self.option_symbole, 1, 2)
 
+        self.option_lowercase.setChecked(True)
+        self.option_numbers.setChecked(True)
+
+        # Affecter une action au clic
+        btn_quit.clicked.connect(self.quit)
+        btn_quit.clicked.connect(self.copy)
+
+        self.option_size.valueChanged.connect(self.change_size)
+
+
+    def quit(self):
+        QApplication.quit()
+
+    def copy(self):
+        clipboard = QApplication.clipboard()
+        clipboard.setText(self.password_generated.text())
+
+    def change_size(self):
+        # récupérer la valeur => actualiser le texte
+        value = self.option_size.value()
+        self.txt_size.setText("Taille:" + str(value))
+
+    def generated(self):
+        size = self.option_size.value()
+        has_lower = self.option_lowercase.isChecked()
+        has_upper = self.option_uppercase.isChecked()
+        has_number = self.option_numbers.isChecked()
+        has_symbols = self.option_symbole.isChecked()
+
+        letters = ""
+        if has_lower:
+            letters += "zaqwzsxedcrfvtgbyhnujikolpm"
+        if has_upper:
+            letters += "AQWZSXEDCRFVTGBYHNUJIKOLPM"
+        if has_number:
+            letters += "0123456789"
+        if has_symbols:
+            letters += "@%_&"
+        
+        password = ""
+        for i in range(size):
+            password += choice(letters)
+        
+        self.password_generated.setText(password)
+        
 
 
 
