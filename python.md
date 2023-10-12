@@ -14,6 +14,8 @@ Title: Python - QT5- PySide6
 - Comprendre / Analyser / Choix technique / Rétro planning : uml
 - GIT + .gitignore + readme.md
     - partager avec l'équipe : carlier.formation@gmail.com
+    - https://github.com/github/gitignore
+    - https://gitignore.io
 - venv + activer + package + requirements.txt
 - 1er commit
 - code...test...code...test...git...code...
